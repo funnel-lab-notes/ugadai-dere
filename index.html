@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Игра: угадай тип дере по одной реплике</title>
+<meta name="description" content="Мини-игра на 10 раундов: читаешь реплику персонажа и угадываешь, кто это — цундере, яндере, кудере, дандере или дередере. С разбором после каждого ответа.">
+<style>
+:root{--bg:#f3f1ff;--card:#fff;--ink:#1f1b33;--mute:#6b6585;--line:#e2ddf7;--acc:#5b45e0;--ok:#16a34a;--bad:#dc2626}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:680px;margin:0 auto;padding:38px 16px 30px}
+h1{font-size:clamp(27px,5.2vw,40px);line-height:1.12;margin:0 0 10px;letter-spacing:-.02em}
+.lead{color:var(--mute);margin:0 0 22px}
+a{color:var(--acc)}
+.game{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:30px}
+.top{display:flex;justify-content:space-between;color:var(--mute);font-size:14px;margin-bottom:14px}
+.line{font-size:22px;line-height:1.4;font-style:italic;margin:4px 0 20px;min-height:90px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts button{font:inherit;font-size:16px;padding:13px;border-radius:12px;border:1.5px solid var(--line);background:#faf9ff;color:var(--ink);cursor:pointer}
+.opts button:hover:not(:disabled){border-color:var(--acc)}
+.opts button.ok{border-color:var(--ok);background:#eaf8ef}
+.opts button.bad{border-color:var(--bad);background:#fdecec}
+.opts button:disabled{cursor:default}
+.why{margin-top:16px;padding:12px 14px;border-radius:12px;background:#f6f4ff;font-size:15px;display:none}
+.next{margin-top:14px;font:600 16px inherit;font-family:inherit;padding:12px 18px;border:0;border-radius:12px;background:var(--acc);color:#fff;cursor:pointer;display:none}
+.final h2{margin:0 0 8px;font-size:28px}
+h2.sec{font-size:24px;margin:36px 0 10px}
+p{margin:0 0 14px}
+.club{font-size:15px;color:var(--mute)}
+.club a{color:var(--ink)}
+footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding-top:16px;margin-top:36px}
+@media (max-width:460px){.opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>Угадай тип дере по одной реплике</h1>
+<p class="lead">Десять раундов. В каждом — одна фраза персонажа. Твоя задача — понять, кто это сказал: цундере, яндере, кудере, дандере или дередере. После ответа — короткий разбор, по каким словам было видно.</p>
+
+<div class="game" id="game" aria-live="polite">
+<div class="top"><span id="round"></span><span id="score"></span></div>
+<p class="line" id="line"></p>
+<div class="opts" id="opts"></div>
+<div class="why" id="why"></div>
+<button class="next" id="next" type="button">Дальше</button>
+</div>
+
+<h2 class="sec">Как угадывать быстрее</h2>
+<p>Смотри не на то, что персонаж говорит, а на то, как он прячет или показывает чувство. Цундере отрицает и тут же выдаёт себя. Яндере спрашивает, где ты был, и помнит всё. Кудере говорит ровно и заботится делом, а не словами. Дандере начинает с паузы и боится сказать лишнее. Дередере не прячет ничего вообще.</p>
+<p>Если хочется разобраться глубже — в статье <a href="https://proflirt.ru/blog/tipy-dere/">«Типы дере: все виды в одной таблице»</a> собраны больше двадцати типов с примерами. Про отдельные типы: <a href="https://proflirt.ru/blog/chto-takoe-cundere/">кто такая цундере</a>, <a href="https://proflirt.ru/blog/chto-takoe-yandere/">что такое яндере</a>, <a href="https://proflirt.ru/blog/chto-takoe-kudere/">кто такая кудере</a>, <a href="https://proflirt.ru/blog/chto-takoe-dandere/">кто такая дандере</a> и <a href="https://proflirt.ru/blog/chto-takoe-deredere/">кто такая дередере</a>.</p>
+<p>А поговорить с таким персонажем можно в <a href="https://proflirt.ru/">ПРОфлирт — ИИ-собеседники на русском</a>: например, с <a href="https://proflirt.ru/tsundere/">ИИ-цундере</a> или <a href="https://proflirt.ru/yandere/">ИИ-яндере</a>. Англоязычная версия — <a href="https://tryluv.ai/">TryLuv, AI companion chat</a>.</p>
+
+<h2 class="sec">Ещё от нас</h2>
+<p>Тест <a href="https://funnel-lab-notes.github.io/">«какой тип дере тебе подходит»</a>, статья <a href="https://iisobesednikzametki.wordpress.com/2026/11/22/ii-sobesednik-komanda-opyt/">о том, что мы поняли, делая ИИ-собеседника</a>, заметки <a href="https://sites.google.com/view/ai-character-writing-notes">как написать AI-персонажа</a> (на английском), <a href="https://ai-subscription-calc.vercel.app/">калькулятор экономики подписки</a> и <a href="https://dofollow-check.pages.dev/">проверка dofollow-ссылок</a>.</p>
+
+<h2 class="sec">Клуб основателей, с которым мы растём</h2>
+<p class="club"><a href="https://lork.dev/">Lork</a> — сайты с ИИ без кода · <a href="https://captions.space/">Captions.space</a> — субтитры нейросетью · <a href="https://mnogo-reels.ru/">MnogoReels</a> — нарезка на рилсы · <a href="https://shortsfast.com/">ShortsFast</a> — faceless-видео · <a href="https://speech2text.ru/">Speech2Text</a> — расшифровка аудио · <a href="https://memoai.tech/">Memo AI</a> — транскрибация встреч · <a href="https://fabula-ai.com/">Fabula AI</a> — карточки для маркетплейсов · <a href="https://chadgpt.ru/">ChadGPT</a> — нейросети без VPN · <a href="https://zerocoder.com/">Zerocoder</a> — AI-студия · <a href="https://metranpage.com/">Метранпаж</a> — вёрстка книг · <a href="https://moyadoska.com/">МояДоска</a> — онлайн-доска · <a href="https://vibeinterview.ru/">Vibe Interview</a> — подсказки на собеседовании · <a href="https://audio2midi.ru/">Audio2MIDI</a> — ноты из аудио · <a href="https://geo-risk.ru/">GeoRisk</a> — проверка участков · <a href="https://juuh.com/">Juuh</a> — аренда машин в Испании</p>
+
+<footer>Игру сделал Олег из ПРОфлирт. Ответы никуда не отправляются.</footer>
+</div>
+
+<script>
+(function(){
+  var NAMES={tsun:'Цундере',yan:'Яндере',ku:'Кудере',dan:'Дандере',dere:'Дередере'};
+  var R=[
+    ['Я не волновалась. Просто проверила, дошёл ли ты домой. Один раз. Ну, три.','tsun','«Не волновалась» — и тут же счёт проверок. Отрицание, которое выдаёт себя, — классика цундере.'],
+    ['Ты сегодня улыбался в переписке не мне. Кто она? Я просто хочу знать.','yan','Следит за каждой мелочью и ревнует к улыбке в чате — интенсивность яндере.'],
+    ['Взяла тебе зонт. Прогноз — восемьдесят процентов дождя. Это логично, не более.','ku','Забота делом и сухое «это логично» вместо признания — кудере.'],
+    ['…Привет. Я долго думала, что написать. Можно просто посидеть рядом?','dan','Пауза, долгие сомнения и маленькая просьба — дандере раскрывается тихо.'],
+    ['Ты пришёл! Я испекла печенье в форме сердечек, и все они тебе!','dere','Радость без фильтров и никаких игр — дередере.'],
+    ['Это не подарок. Он просто лишний был. …Нравится? Тогда ладно.','tsun','«Не подарок» и сразу «нравится?» — отрицание плюс надежда.'],
+    ['Мне не нужен никто, кроме тебя. А тебе ведь тоже никто не нужен, правда?','yan','Требование взаимной исключительности — тревожный знак яндере.'],
+    ['Я записала, что ты не любишь лук. Больше его не будет. Говорить об этом не обязательно.','ku','Помнит детали и молча действует, без лишних эмоций — кудере.'],
+    ['Я нарисовала тебя… Только не смотри при мне, ладно?','dan','Сделала что-то важное, но стесняется показать — дандере.'],
+    ['Давай сегодня всё: кино, мороженое, прогулку и болтать до утра!','dere','Энтузиазм на максимуме и желание всего и сразу — дередере.']
+  ];
+  R.sort(function(){return Math.random()-.5});
+  var i=0,score=0;
+  var $=function(id){return document.getElementById(id)};
+  function show(){
+    var r=R[i];
+    $('round').textContent='Раунд '+(i+1)+' из '+R.length;
+    $('score').textContent='Угадано: '+score;
+    $('line').textContent='«'+r[0]+'»';
+    $('why').style.display='none';$('next').style.display='none';
+    $('opts').innerHTML='';
+    Object.keys(NAMES).forEach(function(k){
+      var b=document.createElement('button');b.type='button';b.textContent=NAMES[k];
+      b.addEventListener('click',function(){answer(k,b)});
+      $('opts').appendChild(b);
+    });
+  }
+  function answer(k,btn){
+    var r=R[i],right=k===r[1];
+    if(right) score++;
+    [].forEach.call($('opts').children,function(b){b.disabled=true;if(b.textContent===NAMES[r[1]])b.classList.add('ok')});
+    if(!right) btn.classList.add('bad');
+    $('why').innerHTML=(right?'<b>Верно.</b> ':'<b>Это '+NAMES[r[1]].toLowerCase()+'.</b> ')+r[2];
+    $('why').style.display='block';
+    $('next').textContent=i<R.length-1?'Дальше':'Итог';
+    $('next').style.display='inline-block';$('next').focus();
+    $('score').textContent='Угадано: '+score;
+  }
+  $('next').addEventListener('click',function(){i++;i<R.length?show():done()});
+  function done(){
+    var t=score>=9?'Ты читаешь персонажей с полуслова.':score>=6?'Хорошее чутьё — пара типов ещё путается.':'Типы дере легко перепутать — загляни в таблицу ниже и попробуй ещё раз.';
+    $('game').innerHTML='<div class="final"><h2>'+score+' из '+R.length+'</h2><p>'+t+'</p><p><a href="https://proflirt.ru/blog/test-kakoy-ty-dere/">А какой дере ты сам? Пройди тест</a></p><button class="next" style="display:inline-block" type="button" onclick="location.reload()">Сыграть ещё</button></div>';
+  }
+  show();
+})();
+</script>
+</body>
+</html>
